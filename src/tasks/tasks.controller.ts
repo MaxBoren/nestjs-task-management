@@ -1,5 +1,6 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { TasksService } from './tasks.service';
+import { Task } from './task.model';
 
 @Controller('tasks')
 export class TasksController {
@@ -8,10 +9,16 @@ export class TasksController {
 	// constructor(tasksService: TasksService) {
 	// 	this.tasksService = tasksService;
 	// }
-	constructor(private tasksService: TasksService) {
-	}
+	constructor(private tasksService: TasksService) {}
 
-	helloWorld() {
-		// this.tasksService.doSomething();
-	}
+  @Get()
+  getAllTasks(): Task[] {
+    return this.tasksService.getAllTasks();
+  }
+
+  @Post()
+  createTask(@Body() body) {
+    console.log('body', body)
+  }
+
 }
